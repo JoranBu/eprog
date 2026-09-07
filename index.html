@@ -36,7 +36,10 @@
         <div class="grid-2">
             <section class="card">
                 <h2>Ankündigungen</h2>
-                <p class="muted">Noch keine Einträge.</p>
+                <div class="latest-announcement">
+                    <strong>7. September 2026</strong>
+                    <p class="announcement-text">Website veröffentlicht.</p>
+                </div>
                 <p><a href="announcements.html">Zur Seite →</a></p>
             </section>
 
@@ -91,6 +94,21 @@
             Eprog HS 26 · Joran Bühler · <a href="mailto:buehlerjo@ethz.ch">buehlerjo@ethz.ch</a>
         </div>
     </footer>
+
+    <script>
+        fetch("announcements.html")
+            .then((response) => response.text())
+            .then((html) => {
+                const doc = new DOMParser().parseFromString(html, "text/html");
+                const latest = doc.querySelector(".placeholder-list li");
+                const preview = document.querySelector(".latest-announcement");
+
+                if (latest && preview) {
+                    preview.innerHTML = latest.innerHTML;
+                }
+            })
+            .catch(() => {});
+    </script>
 </body>
 
 </html>
