@@ -182,8 +182,8 @@ h2 {
 
 .week-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  align-items: stretch;
   gap: 16px;
 }
 
@@ -208,9 +208,6 @@ h2 {
   margin: 8px 0 16px;
   color: var(--muted);
   font-size: 0.95rem;
-}
-
-.week-dates {
   white-space: nowrap;
 }
 
@@ -362,8 +359,7 @@ h2 {
 }
 
 @media (max-width: 640px) {
-  .grid-2,
-  .week-grid {
+  .grid-2 {
     grid-template-columns: 1fr;
   }
 
