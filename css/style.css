@@ -219,8 +219,8 @@ h2 {
   margin: 0 0 12px;
   padding: 3px 9px;
   border-radius: 6px;
-  background: var(--notice);
-  color: #735315;
+  background: #fff1f2;
+  color: #b91c1c;
   font-size: 0.8rem;
 }
 
