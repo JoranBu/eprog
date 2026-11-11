@@ -1,0 +1,52 @@
+public class Labyrinth {
+
+    public static void main(String[] args) {
+        Room first = new Room(1, new Room(1));
+        Room second = new Room(0, new Room(5), new Room(5));
+        System.out.println("task1: erwartet / expected true; erhalten / actual " + task1(first));
+        System.out.println("task2: erwartet / expected true; erhalten / actual " + task2(second));
+    }
+
+    // PRE: room is non-null and belongs to a finite, acyclic labyrinth.
+    public static boolean task1(Room room) {
+        return rec1(room, 0);
+    }
+
+    public static boolean rec1(Room room, int ageSum) {
+        if (room.doorsTo.length == 0) {
+            return (ageSum + room.age) % 3 != 0;
+        }
+        if ((ageSum + room.age) % 3 == 0) return false; // All prefix sums should be valid.
+        for (Room next : room.doorsTo) {
+            if (rec1(next, room.age + ageSum)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // PRE: room is non-null and belongs to a finite, acyclic labyrinth.
+    public static boolean task2(Room room) {
+        // Start in the same room with the same path.
+        return rec2(room, room, true);
+    }
+
+    public static boolean rec2(Room room1, Room room2, boolean samePath) {
+        // Both rooms are exits and we took different paths to them.
+        if (room1.age == room2.age && room1.doorsTo.length == 0
+                && room2.doorsTo.length == 0 && !samePath) {
+            return true;
+        }
+        // The paths must have the same age sequence.
+        if (room1.age != room2.age) return false;
+        // Check all combinations of doors we could take.
+        for (Room next1 : room1.doorsTo) {
+            for (Room next2 : room2.doorsTo) {
+                if (rec2(next1, next2, next1 == next2 && samePath)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
